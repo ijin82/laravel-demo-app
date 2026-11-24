@@ -10,7 +10,8 @@ COPY resources ./resources
 RUN npm run build
 
 # ---- Nginx ----------------------------------------------------------------
-FROM nginx:1.29-alpine
+FROM nginx:1.29-alpine-slim
+RUN apk upgrade --no-cache
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY public /var/www/html/public
 COPY --from=assets /app/public/build /var/www/html/public/build
